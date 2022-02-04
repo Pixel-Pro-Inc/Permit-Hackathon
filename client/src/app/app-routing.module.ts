@@ -5,7 +5,6 @@ import { UserprofileComponent } from './userprofile/userprofile.component';
 import { AdminComponent } from './admin/admin.component';
 import { AmmendmentsComponent } from './ammendments/ammendments.component';
 import { ComplianceComponent } from './compliance/compliance.component';
-import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { MessagesComponent } from './messages/messages.component';
 import { MyapplicationsComponent } from './myapplications/myapplications.component';
