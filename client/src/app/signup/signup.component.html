@@ -19,7 +19,23 @@
                     <label>Enter your last name</label>
                     <app-text-input [formControl]='signupForm.controls["lastname"]' [label]='"last name"' [placeholder]='"Thebe"'></app-text-input>
                     <label>Enter your date of birth</label>
-                    <app-date-input [formControl]='signupForm.controls["dateofbirth"]' [label]='"date of birth"'></app-date-input>                    
+                    <app-date-input [formControl]='signupForm.controls["dateofbirth"]' [label]='"date of birth"'></app-date-input>
+
+                    <div *ngIf="getDefaultAccount() != 'Client'">
+                        <label>Enter account type</label>
+                        <div class="form-group">
+                            <select class="form-control" formControlName="accountType" [class.is-invalid]='signupForm.get("accountType").touched && signupForm.get("accountType").errors'>
+                              <option>Administrator</option>
+                              <option>Client</option>
+                              <option>Issuing Officer</option>
+                              <option>Authorising Officer</option>
+                              <option>Receiving Officer</option>
+                              <option>Administrator</option>
+                            </select>
+                              <div class="invalid-feedback">Please choose an account type</div>
+                        </div>                 
+                    </div>
+
                     <div class="text-center">
                         <p><button class="btn btn-primary btn-circle mr-1" (click)="!form1Complete() && toggleShowDone()" [disabled]='form1Complete()'><i class="fa fa-chevron-right" style="padding-left: 2px;"></i></button></p>
                         <button class="btn btn-transparent text-dark" routerLink="/login">Alreay have an account? Sign in</button>

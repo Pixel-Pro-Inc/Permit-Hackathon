@@ -11,7 +11,7 @@
                     <app-text-input [formControl]='loginForm.controls["password"]' [label]='"password"' [placeholder]='""' [type]='"password"'></app-text-input>
 
                     <div class="text-center">
-                        <button type="submit" [disabled]="loginForm.status == 'INVALID'" class="btn btn-success text-light px-3 mr-1">Sign in</button>
+                        <button type="submit" [disabled]="loginForm.status == 'INVALID'" class="btn btn-danger text-light px-3 mr-1">Sign in</button>
                         <button class="btn btn-primary text-light" routerLink="/signup">Create a free account</button>
                     </div>
                 </div>               
