@@ -1,0 +1,54 @@
+<div style="height: 100vh;">
+    <div class="center-div">
+        <div id="formHolder" class="container">
+            <form [formGroup]='signupForm' (ngSubmit)="signupForm.valid && createAccount()" autocomplete="off">                
+                <div class="bg-light form-stage shadow-sm" *ngIf="!firstdone">
+                    <h4 class="font-weight-bold text-center">Create Your Free Account</h4>
+                    <p><small class="text-warning mt-3">We do not store your omang in our database</small></p>
+                    <button *ngIf="!showOmang" class="btn btn-success mb-3" (click)="toggleShowOmangForm()" style="width: 100%"><i class="fa fa-id-card mr-2"></i>Quick Fill With Omang</button>
+                    <div *ngIf="showOmang">
+                        <p><label class="mb-1">Upload a picture of the front of your omang</label></p>
+                        <p><small class="text-muted">For best results make sure the omang is well lit and the background is a blank surface</small></p>
+                        <div class="form-group">
+                            <input class="form-control" type="file" (change)="onFileChange($event)">
+                        </div>                        
+                    </div>
+                    <hr>                                                                                 
+                    <label>Enter your first name</label>
+                    <app-text-input [formControl]='signupForm.controls["firstname"]' [label]='"first name"' [placeholder]='"Thabo"'></app-text-input>                    
+                    <label>Enter your last name</label>
+                    <app-text-input [formControl]='signupForm.controls["lastname"]' [label]='"last name"' [placeholder]='"Thebe"'></app-text-input>
+                    <label>Enter your date of birth</label>
+                    <app-date-input [formControl]='signupForm.controls["dateofbirth"]' [label]='"date of birth"'></app-date-input>                    
+                    <div class="text-center">
+                        <p><button class="btn btn-primary btn-circle mr-1" (click)="!form1Complete() && toggleShowDone()" [disabled]='form1Complete()'><i class="fa fa-chevron-right" style="padding-left: 2px;"></i></button></p>
+                        <button class="btn btn-transparent text-dark" routerLink="/login">Alreay have an account? Sign in</button>
+                    </div>                    
+                </div>
+                
+                <div class="bg-light form-stage shadow-sm" *ngIf="firstdone">
+                    <h4 class="font-weight-bold text-center">Complete Your Free Account</h4>
+                    <hr>
+                    <p><small class="text-warning">We use emails and sms to update you with feedback and restore your password if its ever forgotten</small></p>
+                    <label>Enter your email</label>
+                    <app-text-input [formControl]='signupForm.controls["email"]' [label]='"email address"' [type]='"email"' [placeholder]='"thabothebe@gmail.com"'></app-text-input>
+                    <label>Enter your phone number</label>
+                    <app-text-input [formControl]='signupForm.controls["phonenumber"]' [label]='"phone number"' [type]='"tel"' [placeholder]='"71234567"'></app-text-input>
+                    <label>Create your password</label>
+                    <app-text-input [formControl]='signupForm.controls["password"]' [label]='"password"' [type]='"password"' [placeholder]=''></app-text-input>
+                    <label>Confirm your password</label>
+                    <app-text-input [formControl]='signupForm.controls["confirmPassword"]' [label]='"password"' [type]='"password"' [placeholder]=''></app-text-input>
+                    <div class="text-center">
+                        <button type="submit" [disabled]="signupForm.status == 'INVALID'" class="btn btn-success text-light px-3">Finish</button>
+                    </div>                    
+                </div>                
+            </form>
+
+            <ul class="text-danger">
+                <li *ngFor="let error of validators">
+                    {{error}}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

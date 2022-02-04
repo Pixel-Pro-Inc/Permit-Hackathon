@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-4">
+    <div class="card">
+      <div class="card-footer">
+        <div class="btn-group d-flex">
+          <!-- This button is not responsive. But its okay, its job was just to go
+          automatically to the messages tab-->
+          <button (click)="selectTab(3)" class="btn btn-success">Message</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-8">
+    <tabset class="member-tabset">
+      <tab heading="About {{user.knownAs}}">
+        <h4>Descriptions</h4>
+        <p>{{user.introductions}}</p>
+      </tab>
+      <tab heading="Constitutions ">
+        <h4>Constitutions</h4>
+        <p>{{user.Constitutions}}</p>
+      </tab>
+      <tab heading="Messages">
+        <app-member-messages [messages]="messages" [username]="user.FirstName"></app-member-messages>
+      </tab>
+
+    </tabset>
+
+  </div>
+</div>

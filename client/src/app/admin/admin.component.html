@@ -1,0 +1,79 @@
+<div style="width: 100%;">
+    <div class="d-flex">
+        <div class="bg-dark shadow-lg text-center" style="height: 100vh; width: 24%;">
+            <h5 class="font-weight-bold text-light shadow-lg py-2 mt-2">Navigation Bar</h5>
+            <div class="container">                
+                <ul class="sidebar-nav" id="sidebar-nav">
+
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" (click)="showMsg()" data-bs-target="#components-nav" data-bs-toggle="collapse" >                          
+                          <i></i><span>Messaging</span><i class="bi bi-chevron-down ms-auto"></i>
+                        </a>
+                      </li>
+          
+                    <li class="nav-item">
+                      <a class="nav-link" (click)="showReview()" data-bs-target="#components-nav" data-bs-toggle="collapse" >
+                        <span class="dot shake bg-warning text-light mr-2">{{countElementsReview()}}</span>
+                        <span>View Applications In Review</span>
+                      </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" (click)="showRejected()" data-bs-target="#components-nav" data-bs-toggle="collapse" >
+                          <span class="dot shake bg-warning text-light mr-2">{{countElementsRejected()}}</span>
+                          <span>View Rejected Applications</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" (click)="showAccepted()" data-bs-target="#components-nav" data-bs-toggle="collapse" >
+                          <span class="dot shake bg-warning text-light mr-2">{{countElementsAccepted()}}</span>
+                          <span>View Accepted Applications</span>
+                        </a>
+                    </li>
+              
+                    <li class="nav-item">
+                      <a class="nav-link collapsed" (click)="showReport()" data-bs-target="#components-nav" data-bs-toggle="collapse">
+                        <i class="bi bi-menu-button-wide"></i><span>Generate AMT/CFT Risk Report</span><i class="bi bi-chevron-down ms-auto"></i>
+                      </a>
+                    </li>
+                </ul>
+            </div>            
+        </div>
+        <div style="width: 100%; height: 100vh; overflow-y: scroll">
+            <div class="container jumbotron mt-5 shadow-sm">
+                <h1 class="font-weight-bold text-center">Welcome to your administrative portal!</h1>
+            </div>
+
+            <div class="container jumbotron mt-5" *ngIf="mod.showReview">
+                <h2 class="font-weight-bold text-center">Applications In Review</h2>
+                <hr>
+                <h3 *ngIf="!hasReview()" class="font-weight-bold text-center mt-5">There are no applications in review</h3>
+
+                <ng-container *ngFor="let x of applications">
+                  <app-application-temp *ngIf="x.review" [interactable]="true" [model]="x" [parent]="comp"></app-application-temp>
+                </ng-container>
+            </div>
+
+            <div class="container jumbotron mt-5" *ngIf="mod.showRejected">
+              <h2 class="font-weight-bold text-center">Rejected Applications</h2>
+              <hr>
+              <h3 *ngIf="!hasRejected()" class="font-weight-bold text-center mt-5">There are no rejected applications</h3>
+
+              <ng-container *ngFor="let x of applications">
+                <app-application-temp *ngIf="x.rejected" [interactable]="false" [model]="x" [parent]="comp"></app-application-temp>
+              </ng-container>
+            </div>
+
+            <div class="container jumbotron mt-5" *ngIf="mod.showAccepted">
+              <h2 class="font-weight-bold text-center">Accepted Applications</h2>
+              <hr>
+              <h3 *ngIf="!hasAccepted()" class="font-weight-bold text-center mt-5">There are no accepted applications</h3>
+
+              <ng-container *ngFor="let x of applications">
+                <app-application-temp *ngIf="x.accepted" [interactable]="false" [model]="x" [parent]="comp"></app-application-temp>
+              </ng-container>
+            </div>
+        </div>
+    </div>
+</div>

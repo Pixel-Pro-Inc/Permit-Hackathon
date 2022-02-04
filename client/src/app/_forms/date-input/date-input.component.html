@@ -1,0 +1,11 @@
+<div class="form-group">
+    <input 
+    type='text'
+    [class.is-invalid]='ngControl.touched && ngControl.invalid'
+    class="form-control"
+    placeholder="Date of Birth"
+    [formControl]='ngControl.control'
+    bsDatepicker [bsConfig]='bsConfig'>
+
+    <div *ngIf="ngControl.control.errors?.required" class="invalid-feedback">Please enter your {{label}}</div>
+</div>

@@ -1,0 +1,27 @@
+<div style="height: 100vh;">
+    <div class="center-div">
+        <div id="formHolder" class="container">
+            <form [formGroup]='loginForm' (ngSubmit)="loginForm.valid && signin()" autocomplete="off">                
+                <div class="bg-light form-stage shadow-sm" *ngIf="!firstdone">
+                    <h4 class="font-weight-bold text-center">Welcome Back, Please Sign in</h4>
+                    <hr>                                                                                 
+                    <label>Enter your email address or phone number</label>
+                    <app-text-input [formControl]='loginForm.controls["accountId"]' [label]='"email or phone number"' [placeholder]='"thabo@gmail.com || 71234567"'></app-text-input>                    
+                    <label>Enter your password</label>
+                    <app-text-input [formControl]='loginForm.controls["password"]' [label]='"password"' [placeholder]='""' [type]='"password"'></app-text-input>
+
+                    <div class="text-center">
+                        <button type="submit" [disabled]="loginForm.status == 'INVALID'" class="btn btn-success text-light px-3 mr-1">Sign in</button>
+                        <button class="btn btn-primary text-light" routerLink="/signup">Create a free account</button>
+                    </div>
+                </div>               
+            </form>
+
+            <ul class="text-danger">
+                <li *ngFor="let error of validators">
+                    {{error}}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
