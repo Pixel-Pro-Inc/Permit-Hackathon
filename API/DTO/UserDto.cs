@@ -13,6 +13,6 @@ namespace API.DTO
         public string Email { get; set; }
         public int Phonenumber { get; set; }
         public string Token { get; set; }
-        public bool Admin { get; set; }
+        public string AccountType { get; set; }
     }
 }
