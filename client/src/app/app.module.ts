@@ -6,12 +6,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { UserprofileComponent } from './userprofile/userprofile.component';
 import { NavComponent } from './nav/nav.component';
 import { RegisterComponent } from './register/register.component';
 import { SignupComponent } from './signup/signup.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TextInputComponent } from './_forms/text-input/text-input.component';
-import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
+import { BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import { DateInputComponent } from './_forms/date-input/date-input.component';
 import { ToastrModule } from 'ngx-toastr';
 import { LoginComponent } from './login/login.component';
@@ -32,12 +33,11 @@ import { MemberMessagesComponent } from './members/member-messages/member-messag
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { MemberCardComponent } from './members/member-card/member-card.component';
-
-
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
+    UserprofileComponent,
     RegisterComponent,
     SignupComponent,
     TextInputComponent,

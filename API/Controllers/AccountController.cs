@@ -223,6 +223,7 @@ namespace API.Controllers
                 DateOfBirth = signUpDto.Dateofbirth,
                 PasswordSalt = hmac.Key,
                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(signUpDto.Password)),
+                AccountType = signUpDto.AccountType,
                 PhoneNumber = signUpDto.Phonenumber,
             };
 
@@ -236,9 +237,9 @@ namespace API.Controllers
                 Firstname = signUpDto.Firstname,
                 Lastname = signUpDto.Lastname,
                 Email = signUpDto.Email,
+                AccountType = signUpDto.AccountType,
                 Phonenumber = signUpDto.Phonenumber,
                 Token = _tokenService.CreateToken(appUser),
-                Admin = appUser.Admin,
                 Username = appUser.GetUserName()
             };
         }
@@ -279,7 +280,7 @@ namespace API.Controllers
                 Email = user.Email,
                 Phonenumber = user.PhoneNumber,
                 Token = _tokenService.CreateToken(user),
-                Admin = user.Admin,
+                AccountType = user.AccountType,
                 Username = user.GetUserName()
             };
         }
