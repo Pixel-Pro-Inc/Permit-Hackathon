@@ -16,6 +16,8 @@ namespace API.Entities
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
         public string AccountType { get; set; }
+        public ICollection<Message> MyProperty { get; set; }
+
         public string GetUserName()
         {
             return FirstName + ' ' + LastName;
