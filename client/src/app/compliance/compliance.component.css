@@ -1,0 +1,19 @@
+.two-colums
+{
+    display:grid;
+    grid-template-columns: 70% 30%;
+}
+.title-block{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+    
+    .title-badge{
+        border-radius: 2em;
+        width: fit-content;    
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-top: 7px;
+        padding-bottom: 0.5px;    
+    }

@@ -1,0 +1,67 @@
+<div style="height: 100vh; width: 100%; display: table;">
+    <div class="center-div">
+        <div id="formHolder" class="container">
+            <form [formGroup]='regForm' autocomplete="off">
+                <div class="bg-light form-stage shadow-sm" *ngIf="!done1">
+                    <div class="progress mt-1 mb-3">
+                        <div class="progress-bar bg-success animator" role="progressbar" style="width: 50%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-step shadow-sm"></div>                    
+                        </div>
+                    </div>
+                    <h4 class="font-weight-bold text-center">Lets complete your society's registration</h4>                    
+                    <hr>         
+
+                    <label>Select your proposed Constitution, submitted in triplicate (PDF format)</label>
+                    <div class="form-group">
+                        <input 
+                        class="form-control" 
+                        type="file"
+                        formControlName="constitution" 
+                        [class.is-invalid]='regForm.get("constitution").touched && regForm.get("constitution").errors'
+                        accept="application/pdf" (change)="onFileChange($event, 'Proposed Constitution,')">
+
+                          <div class="invalid-feedback">Please select a pdf file</div>
+                    </div>
+                    <label>Select your form A, submitted in triplicate (PDF Format)</label>
+                    <div class="form-group">
+                        <input 
+                        class="form-control" 
+                        type="file"
+                        formControlName="formA" 
+                        [class.is-invalid]='regForm.get("formA").touched && regForm.get("formA").errors'
+                        accept="application/pdf" (change)="onFileChange($event, 'Form A,')">
+
+                          <div class="invalid-feedback">Please select a pdf file</div>
+                    </div>
+                    <label>Select a membership List (PDF format)</label>
+                    <div class="form-group">
+                        <input 
+                        class="form-control" 
+                        type="file"
+                        formControlName="membership" 
+                        [class.is-invalid]='regForm.get("membership").touched && regForm.get("membership").errors'
+                        accept="application/pdf" (change)="onFileChange($event, 'Membership List,')">
+
+                          <div class="invalid-feedback">Please select a pdf file</div>
+                    </div>
+
+                    <div class="text-center">
+                        <button class="btn btn-primary btn-circle" (click)="done1 = true" [disabled]="regForm.status == 'INVALID'"><i class="fa fa-chevron-right" style="padding-left: 2px;"></i></button>
+                    </div>
+                </div>
+                <div class="bg-light form-stage shadow-sm" *ngIf="done1">
+                    <div class="progress mt-1 mb-3">
+                        <div class="progress-bar bg-success animator2" style="width: 50%;" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                        </div>
+                    </div>
+                    <h4 class="font-weight-bold text-center">You need to pay the 500 pula registration fee</h4>
+                    <p><small class="text-warning">When you're done click the view applications button to proceed</small></p>
+                    <div class="text-center">
+                        <button class="btn btn-primary mr-3" (click)="makePayment()">Pay Now</button>
+                        <button class="btn btn-primary" routerLink="/myapplications">View Your Applications</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

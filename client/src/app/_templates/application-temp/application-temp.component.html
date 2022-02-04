@@ -1,0 +1,118 @@
+<div class="list-group-item list-group-item mb-2">
+    <div class="d-flex gap-3 py-3">
+      <img width="100" height="100" src="https://firebasestorage.googleapis.com/v0/b/societies-and-security-hack.appspot.com/o/Societies%20Website%20Assets%2FRegister.png?alt=media&token=1a2d2dd7-9817-4ad1-b9d8-b03842f2ed12">
+      <div class="ml-3">
+        <h4><span class="font-weight-bold">Society Type: </span>{{model.type}}</h4>
+        <span><span class="font-weight-bold">Stage of Application: </span>{{model.stage}}</span>
+        <p><small class="text-muted mt-1" style="cursor: pointer;" (click)="model.showExtra = !model.showExtra">Click to show <span *ngIf="!model.showExtra">more</span><span *ngIf="model.showExtra">less</span></small></p>
+      </div>
+
+      <div class="ml-5">
+        <p>
+            <label class="mr-2">Submitted: {{model.date}}</label>
+        </p>
+        <p>
+        <label class="mr-2">{{model.firstname}}</label>
+
+        <label>{{model.lastname}}</label>
+        </p>
+        <p>
+            <label class="mr-2">{{model.email}}</label>
+        </p>
+
+        <button *ngIf="interactable" (click)="Approve()" class="mb-2 btn btn-success text-light mr-2"><i class="fa fa-check text-light mr-1"></i> Approve</button>
+        <button *ngIf="interactable" (click)="Reject()" class="mb-2 btn btn-danger text-light mr-2"><i class="fa fa-times text-light mr-1"></i> Reject</button>
+        <button *ngIf="interactable && model.stage != 'Registration'" (click)="MarkForCorrections()" class="mb-2 btn btn-warning text-light mr-2"><i class="fa fa-search text-light mr-1"></i> Mark For Corrections</button>
+
+        <button *ngIf="interactable && model.stage == 'Registration'" [disabled]="true" (click)="MarkForCorrections()" class="mb-2 btn btn-warning text-light mr-2 tooltip">
+            <i class="fa fa-search text-light mr-1"></i>
+            <span class="tooltiptext">We were unable to add this feature in time</span>
+            Mark For Corrections
+        </button>
+      </div>              
+
+    </div>
+
+    <hr *ngIf="model.showExtra">
+
+    <div *ngIf="model.showExtra" style="margin-left: 10%; margin-right: 10%;">   
+        <h5 class="font-weight-bold">Application</h5>
+        <ng-container *ngIf="model.stage != 'Registration'">
+            <hr>
+            <h5>Proposed Names <small>(Approve names by ticking the checkboxes)</small></h5>
+            <ul *ngFor="let x of model.names">
+                <li><span class="mr-2">{{x}}</span> <input *ngIf="interactable" type="checkbox" [(ngModel)]="model.nameApproved[model.names.indexOf(x)]" (click)="DisableApprove(model.nameApproved)"></li>
+            </ul>
+        </ng-container>        
+        <hr>
+        <h5>List of Objectives</h5>
+        <ul *ngFor="let x of model.objectives">
+            <li><span>{{x}}</span></li>
+        </ul>
+        <hr>
+        <h5>Files</h5>
+        <ng-container *ngFor="let x of model.fileUrls">
+            <p><a (click)="model.showLocal[model.fileUrls.indexOf(x)] = !model.showLocal[model.fileUrls.indexOf(x)]" class="font-weight-bold" aria-current="true" style="cursor: pointer;">{{model.fileNames[model.fileUrls.indexOf(x)]}}</a> <small class="ml-3" style="cursor: pointer;" (click)="OpenInNewTab(x)">View in new tab</small></p>
+            
+            <div *ngIf="model.showLocal[model.fileUrls.indexOf(x)]" class="embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" 
+                [src]=fileURL(x) allowfullscreen></iframe>
+            </div>
+        </ng-container>        
+    </div>                   
+</div>
+
+<div *ngIf="showFeedback && model.accepted && model.stage == 'Registration'" style="height: 100vh;">
+    <div class="center-div">
+        <div id="formHolder" class="container">
+            <form autocomplete="off">                
+                <div class="bg-light form-stage shadow-sm">
+                   <app-cert #cert [model]="model" [parent]="this"></app-cert>
+                    <div class="text-center">
+                        <button (click)="cert.convertToPDF()" class="btn btn-primary text-light mt-3">Continue</button>
+                    </div>
+                </div>               
+            </form>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showFeedback && model.rejected" style="height: 100vh;">
+    <div class="center-div">
+        <div id="formHolder" class="container">
+            <form autocomplete="off">                
+                <div class="bg-light form-stage shadow-sm">
+                    <h4 class="font-weight-bold text-center">Feedback</h4>
+                    <hr>                                                                                 
+                    <label>Enter your reasons for rejection <small>(Please separate with Commas)</small></label>
+                    <form>
+                        <textarea #textArea style="width: 100%; min-height: 300px;"></textarea>
+                    </form>
+                    <div class="text-center">
+                        <button (click)="continueR(textArea.value)" class="btn btn-primary text-light">Continue</button>
+                    </div>
+                </div>               
+            </form>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showFeedback && model.corrections" style="height: 100vh;">
+    <div class="center-div">
+        <div id="formHolder" class="container">
+            <form autocomplete="off">                
+                <div class="bg-light form-stage shadow-sm">
+                    <h4 class="font-weight-bold text-center">Feedback</h4>
+                    <hr>                                                                                 
+                    <label>Enter the corrections that need to be made <small>(Please separate with Commas)</small></label>
+                    <form>
+                        <textarea #textArea2 style="width: 100%; min-height: 300px;"></textarea>
+                    </form>
+                    <div class="text-center">
+                        <button (click)="continueC(textArea2.value)" class="btn btn-primary text-light">Continue</button>
+                    </div>
+                </div>               
+            </form>
+        </div>
+    </div>
+</div>

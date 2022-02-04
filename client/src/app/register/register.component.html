@@ -1,0 +1,130 @@
+<div class="title-block jumbotron shadow-sm">
+    <div class="container" style = "padding-right: 100px;">
+        <h1 class="mb-4">Register Society</h1>
+        <p class="h5 text-muted">A society must consist of <span class="text-dark font-weight-bold">150 members</span> for a religious organization or <span class="text-dark font-weight-bold">20 or more members</span> for any other type of society. There are certain pre requisites to register as a society which are contained on this page for your conveinence. For any queries please contact us at: </p>
+        <div class="mt-3">
+            <button class="btn btn-outline-success mr-1 mb-1" (click)="callService.call('361154')">
+                <i class="fa fa-phone text-dark fa-2x">
+                    <span class="text-dark font-weight-bold"> 3611564</span>
+                </i>
+            </button>
+            <button class="btn btn-outline-success mr-1 mb-1" (click)="callService.call('3611536')">
+                <i class="fa fa-phone text-dark fa-2x">
+                    <span class="text-dark font-weight-bold"> 3611536</span>
+                </i>
+            </button>
+            <button class="btn btn-outline-success mr-1 mb-1" (click)="callService.call('3611541')">
+                <i class="fa fa-phone text-dark fa-2x">
+                    <span class="text-dark font-weight-bold"> 3611541</span>
+                </i>
+            </button>
+            <button class="btn btn-outline-success mr-1" (click)="callService.call('3611543')">
+                <i class="fa fa-phone text-dark fa-2x">
+                    <span class="text-dark font-weight-bold"> 3611543</span>
+                </i>
+            </button>
+        </div>        
+    </div>
+
+    <img src="https://firebasestorage.googleapis.com/v0/b/societies-and-security-hack.appspot.com/o/Societies%20Website%20Assets%2FRegister.png?alt=media&token=5ffd0932-ea0e-4a6b-8878-f8f83cceafa1"
+    width="300px"/>
+</div>
+
+<div class="container">
+    <h2 class="font-weight-bold">Process Outline</h2>
+    <p class="font-weight-bold">The society registration process is divided into two stages:</p>
+    <ol>
+        <li>Application for Name Authorisation</li>
+        <li>Application for Registration</li>
+    </ol>
+
+    <h3 class="font-weight-bold">1. Stage One</h3>
+
+    <div class="bg-success title-badge mt-4 mb-4">
+        <h4 class="text-light">Application for Name Authorisation</h4>
+    </div>
+
+    <p>At this stage you will apply for a name for your society. We will check if your desired name is available and valid and reserve it for you until you either finish stage 2 or 90 days ellapse.</p>
+    <p>The list of requirements for this stage are provided below when you are ready to proceed click <button class="btn btn-success text-light ml-3" routerLink="/nameauthorisation">Get Started</button></p>
+
+    <div class="jumbotron">
+        <h4>Requirements for all organizations</h4>
+        <ul>
+            <li>Letter of intention to register a society (PDF format)</li>
+            <li>Minutes of meeting of formation of the society (PDF Format)</li>
+            <li>Attendance Register (with full names, identity numbers, contact numbers and
+                signatures) (PDF format)</li>
+            <li>List of 10 proposed Names for the society</li>
+            <li>List of Three or more Objectives</li>
+            <li>Authorization from parent organization (where applicable) (PDF Format)</li>
+            <li>Certified copy of constitution of parent organization (where applicable) (PDF format)</li>
+        </ul>   
+    </div>    
+
+    <div class="jumbotron">
+        <h4>Additional documents for Religious Organizations</h4>
+
+        <ul>
+            <li>Theology certificate from an accredited institute (PDF format)</li>
+            <li>Ordination certificate for the church Spiritual Leader (PDF Format)</li>
+            <li>Release letter from the Spiritual Leader ‘s former Church (PDF format)</li>
+        </ul>  
+    </div>
+    
+    <button class="btn btn-success text-light" routerLink="/nameauthorisation">Get Started</button>
+
+    <h3 class="font-weight-bold mt-3">2. Stage Two</h3>
+
+    <div class="bg-success title-badge mt-4 mb-4">
+        <h4 class="text-light">Application for Registration</h4>
+    </div>
+    
+    <p>At this stage you complete the registration process. We will assess your entire application and send you your <span class="font-weight-bold">certificate of registration</span>.</p>
+    <p>The list of requirements for this stage are provided below. <span class="font-weight-bold">Once stage 1 reaches completion you will be able to start stage 2</span>
+    <button class="btn btn-success text-light ml-3" routerLink="/myapplications" [disabled]="showStage2">Get Started</button></p>
+
+    <div class="jumbotron">
+        <h4>Requirements for all organizations</h4>
+        <ul>
+            <li>Proposed Constitution, submitted in triplicate (PDF format)</li>
+            <li class="text-primary list-group-item-action" style="cursor: pointer;" aria-current="true" (click)="openForm('https://firebasestorage.googleapis.com/v0/b/societies-and-security-hack.appspot.com/o/Societies%20Website%20Assets%2FForm%20A.pdf?alt=media&token=5cc45293-611c-4597-91f8-92a69d10bb56')">Form A, submitted in triplicate (PDF Format)</li>
+            <li>Membership List (PDF format)</li>
+            <li>Application fee of P500.00</li>
+        </ul>   
+    </div>
+
+    <h2 class="font-weight-bold">Societies</h2>
+
+    <div class="jumbotron">
+        <h4>What is a Society?</h4>
+        <p>A society includes any association of 150 or more
+            persons formed for religious purposes, or any club,
+            partnership or association of 20 or more persons,
+            whatever its nature or objectives.
+        </p>    
+    </div>
+
+    <div class="jumbotron">
+        <h4>Types of Societies</h4>
+        <ul>
+            <li>Community Based Organisations</li>
+            <li>Burial Societies</li>
+            <li>Sporting Clubs</li>
+            <li>Charitable Organisations</li>
+            <li>Professional Organisations</li>
+            <li>Faith Based Organisations</li>
+            <li>Music And Entertainment Organisations</li>
+            <li>Youth, Men and Women Organisations</li>
+            <li>Business Associations</li>
+            <li>Farmers Association</li>
+            <li>Societies And Clubs</li>
+            <li>Associations</li>
+            <li>Cultural Organisations</li>
+            <li>Civil Societies</li>
+            <li>Academic Societies</li>
+            <li>Social Clubs</li>
+            <li>Alumni Societies</li>
+        </ul>
+    </div>
+
+</div>
