@@ -32,9 +32,8 @@ export class AccountService{
     this.shared.http.post(this.shared.baseUrl + 'account/signup', model).subscribe(
       response =>{
         console.log(response)
-        this.shared.setUser(response);//Logs a user in
+        this.login2(response);      
         this.shared.busyService.idle();
-        this.shared.router.navigateByUrl('/');
       },
       error => {
         this.shared.busyService.idle();
@@ -47,8 +46,7 @@ export class AccountService{
     this.shared.busyService.busy('Signing you in');
     this.shared.http.post(this.shared.baseUrl + 'account/login', model).subscribe(
       response =>{
-        this.shared.setUser(response);//Logs a user in
-        this.shared.router.navigateByUrl('/');
+        this.login2(response);
         this.shared.busyService.idle();
       },
       error => {
@@ -56,6 +54,17 @@ export class AccountService{
         this.shared.toastr.error(error.error);
       }
     );
+  }
+
+  login2(response: any){
+    this.shared.setUser(response);//Logs a user in
+
+    if(response.accountType == 'Client'){
+      this.shared.router.navigateByUrl('/userprofile');
+      return;
+    }
+
+    this.shared.router.navigateByUrl('/admin');  
   }
 
   logout(){

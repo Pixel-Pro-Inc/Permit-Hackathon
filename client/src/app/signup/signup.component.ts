@@ -29,7 +29,8 @@ export class SignupComponent implements OnInit {
       phonenumber: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(8), this.isNumber()]],
       dateofbirth: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', [Validators.required, this.matchValues('password')]]
+      confirmPassword: ['', [Validators.required, this.matchValues('password')]],
+      accountType: [this.getDefaultAccount(), [Validators.required]]
     });
 
     this.signupForm.controls.password.valueChanges.subscribe(() => {
@@ -41,10 +42,18 @@ export class SignupComponent implements OnInit {
     });
   }
 
+  getDefaultAccount(){
+    if(this.shared.getUser() == null)
+    return 'Client';
+
+    return this.shared.getUser().accountType == 'administrator' || this.shared.getUser().accountType == 'developer'? '': 'Client';
+  }
+
   form1Complete(): boolean{
     if(this.signupForm.controls['firstname'].errors != null 
     || this.signupForm.controls['lastname'].errors != null
-    || this.signupForm.controls['dateofbirth'].errors != null){
+    || this.signupForm.controls['dateofbirth'].errors != null
+    || this.signupForm.controls['accountType'].errors != null){
       return true;
     }
 

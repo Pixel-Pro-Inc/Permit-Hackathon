@@ -112,9 +112,17 @@ header.masthead {
     100% {transform: scale(1.1);}
 }
 
-.body-back{
+/*.body-back{
   font-family: "Open Sans", sans-serif;
     color: #444444;
     height: 100%;
     background-image: url("https://firebasestorage.googleapis.com/v0/b/societies-and-security-hack.appspot.com/o/Societies%20Website%20Assets%2Fwebsite%20background.png?alt=media&token=dc571718-47f5-4886-8b60-f2dd75c9fd8e");
+}*/
+
+/*Diamond Background*/
+body,html {height:100%;overflow:hidden;}
+.body-back {
+  width: 100vw;
+  height: 100%;
+  background: linear-gradient(to bottom, #0c1127 0%,#33233e 100%);
 }

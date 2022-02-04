@@ -23,13 +23,13 @@ namespace API.Controllers
         public async void SendMessage(string phonenumber, string email, string msg, string subject)
         {
             //Send SMS
-            TwilioClient.Init(apiKeySid, apiKeySecret, accountSid);
+            /*TwilioClient.Init(apiKeySid, apiKeySecret, accountSid);
 
             var message = await MessageResource.CreateAsync(
                 body: msg,
                 from: "BOTC",
                 to: new Twilio.Types.PhoneNumber("+267" + phonenumber)
-            );
+            );*/
 
             if (email == "")
                 return;
