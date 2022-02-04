@@ -1,4 +1,6 @@
-﻿using API.Entities;
+﻿using API.DTO;
+using API.Entities;
+using API.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +12,7 @@ namespace API.Interfaces
     {
         void AddMessage(Message message);
         void DeleteMessage(Message message);
-        Task<Message> GetMessage(int id);
         Task<PagedList<MessageDto>> GetMessagesForUser();
+        //Task<bool> SaveAllAsync();
     }
 }
