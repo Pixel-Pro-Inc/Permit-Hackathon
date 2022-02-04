@@ -111,3 +111,10 @@ header.masthead {
     0% {transform: scale(1);}
     100% {transform: scale(1.1);}
 }
+
+.body-back{
+  font-family: "Open Sans", sans-serif;
+    color: #444444;
+    height: 100%;
+    background-image: url("https://firebasestorage.googleapis.com/v0/b/societies-and-security-hack.appspot.com/o/Societies%20Website%20Assets%2Fwebsite%20background.png?alt=media&token=dc571718-47f5-4886-8b60-f2dd75c9fd8e");
+}
