@@ -32,7 +32,7 @@ namespace API.Controllers
 
         //Removed this from AccountController so it can be shared with all controllers but noone else, hence the protected modifier
         //Also Why did you decided to use only email and PhoneNumbers here
-        public async Task<User> GetUser(string accountID)
+        protected async Task<User> GetUser(string accountID)
         {
             if (string.IsNullOrEmpty(accountID))
                 return null;
@@ -47,6 +47,19 @@ namespace API.Controllers
             }
 
             return null;
+        }
+        //I changed this method to include a parameter so that it can work for any type that needs an Id
+        protected async Task<int> SetId(string entityType)
+        {
+            //I changed this to set Id cause it does not in effect the id from the database
+            List<User> users = await _firebaseDataContext.GetData<User>(entityType);
+
+            int lastId = -1;
+
+            if (users.Count != 0)
+                lastId = users.Where(u => u.Id == (users.Count - 1)).ToList()[0].Id;
+
+            return (lastId + 1);
         }
     }
 }

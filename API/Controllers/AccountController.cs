@@ -227,7 +227,7 @@ namespace API.Controllers
                 PhoneNumber = signUpDto.Phonenumber,
             };
 
-            appUser.Id = await GetId();
+            appUser.Id = await SetId("Account");
 
             _firebaseDataContext.StoreData("Account/" + appUser.Id, appUser);
 
@@ -243,17 +243,7 @@ namespace API.Controllers
                 Username = appUser.GetUserName()
             };
         }
-        async Task<int> GetId()
-        {
-            List<User> users = await _firebaseDataContext.GetData<User>("Account");
-
-            int lastId = -1;
-
-            if (users.Count != 0)
-                lastId = users.Where(u => u.Id == (users.Count - 1)).ToList()[0].Id;
-
-            return (lastId + 1);
-        }
+      
         #endregion
         #region Login
         [HttpPost("login")]

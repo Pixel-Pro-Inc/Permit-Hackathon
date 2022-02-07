@@ -1,5 +1,6 @@
 ﻿using API.DTO;
 using API.Entities;
+using API.Extentions;
 using API.Helpers;
 using API.Interfaces;
 using AutoMapper;
@@ -47,51 +48,59 @@ namespace API.Controllers
                 Recipient = recipient,
                 SenderUsername = sender.GetUserName(),
                 RecipientUsername = recipient.GetUserName(),
-                content = createMessageDto.Content
+                content = createMessageDto.Content,
+                Id = await SetId("Message")
             };
-
+            //There is no point putting a messageDto in a database so this makes sense and shouldn't be changed.
             _firebaseDataContext.StoreData("Messages/" + sender.Id + message.Id, message); //Consider replacing message with _mapper.Map<MessageDto>(message)
-            //return firebase style expected
+            
 
-            //The lines below may give problems cause there is no database context in MessageRepository.
-            /*
-            _messageRepository.AddMessage(message);
-            if (await _messageRepository.SaveAllAsync()) return Ok(_mapper.Map<MessageDto>(message));
-             */
-            return Ok(_mapper.Map<MessageDto>(message));
+            return Ok(_mapper.Map<MessageDto>(message));// It's neccessary to Map this cause We need the map in get messages
 
         }
 
         #endregion
-
         #region Get Message
 
         [HttpGet("messages/getmessages")]
         public async Task<ActionResult<IEnumerable<MessageDto>>> GetMessagesForUser([FromQuery] MessageParams messageParams)
         {
             var messages = await GetMessages(messageParams); //firebase call
+            if(messages==null)
+            {
+                return BadRequest("There are no messages");
+            }
+            //The below code is removed cause it throws an error: The provider for the source IQueryable doesn't implement IAsyncQueryProvider
             //Response.AddPaginationHeader(messages.CurrentPage, messages.Pagesize, messages.TotalCount, messages.TotalPages);
             return messages;
         }
 
-        async Task<PagedList<MessageDto>> GetMessages(MessageParams messageParams)
+        async Task<List<MessageDto>> GetMessages(MessageParams messageParams)
         {
             ///Use this as a template for the firebase equivalent in MessageController
             var query = await _firebaseDataContext.GetData<Message>("Messages");
-            IQueryable<Message> checlist = query.AsQueryable<Message>(); //needs to be IQueryable 
+            IQueryable<Message> checlist = query.AsQueryable<Message>().OrderByDescending(m=>m.MessageSent); //needs to be IQueryable 
+
             checlist = messageParams.Container switch
             {
                 "Inbox" => checlist.Where(u => u.Recipient.GetUserName() == messageParams.Username),
                 "Outbox" => checlist.Where(u => u.Sender.GetUserName() == messageParams.Username),
                 _ => checlist.Where(u => u.Recipient.GetUserName() == messageParams.Username && u.DateRead == null)
             };
+            if (checlist.Count()==0)
+            {
+                BadRequest("There are no messages from this person");
+                return null;
+            }
+            var messages = checlist.ProjectTo<MessageDto>(_mapper.ConfigurationProvider); //this is necessary cause PagedList doesn't work with Messages but its Dto
 
-            var messages = checlist.ProjectTo<MessageDto>(_mapper.ConfigurationProvider);
-
-            return await PagedList<MessageDto>.CreateAsync(messages, messageParams.PageNumber, messageParams.pageSize);
+            return messages.ToList();
+            //The below code is removed cause it throws an error: The provider for the source IQueryable doesn't implement IAsyncQueryProvider
+            //await PagedList<MessageDto>.CreateAsync(messages, messageParams.PageNumber, messageParams.pageSize);
         }
 
         #endregion
+
         #region Get Message Thread
 
         [HttpGet("messages/thread/{otherGetUserName()}")]
