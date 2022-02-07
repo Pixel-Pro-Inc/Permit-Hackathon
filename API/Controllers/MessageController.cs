@@ -63,7 +63,7 @@ namespace API.Controllers
         #region Get Message
 
         [HttpGet("messages/getmessages")]
-        public async Task<ActionResult<IEnumerable<MessageDto>>> GetMessagesForUser([FromQuery] MessageParams messageParams)
+        public async Task<ActionResult<IEnumerable<MessageDto>>> GetMessagesForUser(MessageParams messageParams)
         {
             var messages = await GetMessages(messageParams); //firebase call
             if(messages==null)
@@ -100,10 +100,9 @@ namespace API.Controllers
         }
 
         #endregion
-
         #region Get Message Thread
-
-        [HttpGet("messages/thread/{otherGetUserName()}")]
+        //When giving this info like UserEmail and such, do not put the curly brackets, just input them as is 
+        [HttpGet("messages/thread/{UserEmail}+{otherusername}")]
         public async Task<ActionResult<IEnumerable<MessageDto>>> GetMessageThread(string UserEmail, string otherusername)
         {
             User sender = await GetUser(UserEmail); //We using this method cause this is all Yewo left to our disposal and I'm not going to write more code
