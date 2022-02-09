@@ -24,9 +24,10 @@ export class MessageService {
   messageThread$ = this.messageThreadSource.asObservable();
 
   constructor(private shared: SharedService) {
-    console.log("Check here for the observable null variable in the message service it is used right here in the same message service");}
+    
+  }
 
-  //connected with controller
+  //connected with controller but will be made obselete
   getMessages(pageNumber, pageSize, container) {
     let params = getPaginationHeaders(pageNumber, pageSize);
     params = params.append('Container', container);
@@ -36,15 +37,16 @@ export class MessageService {
     //return this.shared.http.get<Message[]>(this.shared.baseUrl + 'message/messages/getmessages');
   }
 
-  //this method is supposed to replace getMessages()
+  //this method is replaces getMessages()
   getMessages1() {
     let messageParams: any = {};
     //We need to change this so that it can collect for everyone instead of just a specific person
+    //I think this will have to set up when the real time thingy is made. But for now this will stay
     messageParams.senderEmail = 'yewotheu123456789@gmail.com';
     messageParams.username = 'Yewo Theu';
     messageParams.container = 'Unread';
 
-    console.log(messageParams);
+    //console.log(messageParams);
 
      return this.shared.http.post(this.shared.baseUrl + 'message/messages/getmessages', messageParams).pipe(
       map((response: Message[]) => {

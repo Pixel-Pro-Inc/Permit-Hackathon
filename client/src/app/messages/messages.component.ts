@@ -24,6 +24,7 @@ export class MessagesComponent implements OnInit {
 
   loadMessages() {
     //I commented the below, cause I want to completely do this without pagination and see what I would have done personally
+    //Update, so I managed to do it without pagination. But I am leaving this here incase we might need it in the future.I don't want to go code hunting again
     /**
     this.messageService.getMessages(this.pageNumber, this.pageSize, this.container).subscribe(response => {
       this.messages = response.result;
@@ -38,7 +39,7 @@ export class MessagesComponent implements OnInit {
 */
     this.messageService.getMessages1().subscribe(response => {
       this.messages = response;
-      console.log(response);
+      //console.log(response); we know it works so I am commenting it out
     },
       error => {
         console.log(error);
@@ -46,8 +47,10 @@ export class MessagesComponent implements OnInit {
   }
 
   pageChanged(event: any) {
-    this.pageNumber = event.page;
-    this.loadMessages();
+    if(this.pageNumber!==event.page){
+      this.pageNumber = event.page;
+      this.loadMessages();
+    }
   }
 
 }
