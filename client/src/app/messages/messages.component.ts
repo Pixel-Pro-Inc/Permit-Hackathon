@@ -23,10 +23,26 @@ export class MessagesComponent implements OnInit {
   }
 
   loadMessages() {
+    //I commented the below, cause I want to completely do this without pagination and see what I would have done personally
+    /**
     this.messageService.getMessages(this.pageNumber, this.pageSize, this.container).subscribe(response => {
       this.messages = response.result;
       this.pagination = response.pagination;
-    })
+      //simply giving it a response fought cause it was expecting a paginated result.
+      //this.messages = response;
+      console.log(response.result);
+    },
+      error => {
+        console.log(error);
+      });
+*/
+    this.messageService.getMessages1().subscribe(response => {
+      this.messages = response;
+      console.log(response);
+    },
+      error => {
+        console.log(error);
+      });
   }
 
   pageChanged(event: any) {

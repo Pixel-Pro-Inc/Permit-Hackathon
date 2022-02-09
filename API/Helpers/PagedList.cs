@@ -26,10 +26,13 @@ namespace API.Helpers
         public int Pagesize { get; set; }
         public int TotalCount { get; set; }
 
-        public static async Task<PagedList<T>> CreateAsync(IQueryable<T> source, int pageNumber, int pageSize)
+        //this used to be async but I removed it in attempt to solve this error message: The provider for the source IQueryable doesn't implement IAsyncQueryProvider
+        // I'm sure the fact that it's no longer asynchronous will break it but let's see if it works. We will leave the method to be called CreateAsync
+        //I am now removing Task as well cause the reason it was async was to accomodate for tasks
+        public static PagedList<T> CreateAsync(IQueryable<T> source, int pageNumber, int pageSize)
         {
-            var count = await source.CountAsync();
-            var items = await source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+            var count = source.Count();
+            var items = source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
 
             return new PagedList<T>(items, pageNumber, count, pageSize); 
         }

@@ -61,17 +61,17 @@ namespace API.Controllers
 
         #endregion
         #region Get Message
-
-        [HttpGet("messages/getmessages")]
+        //We use post here cause we want the messageParam to come from the client, the service will actually send messageParams first then this will fire
+        [HttpPost("messages/getmessages")]
         public async Task<ActionResult<IEnumerable<MessageDto>>> GetMessagesForUser(MessageParams messageParams)
         {
             var messages = await GetMessages(messageParams); //firebase call
+
             if(messages==null)
             {
                 return BadRequest("There are no messages");
             }
-            //The below code is removed cause it throws an error: The provider for the source IQueryable doesn't implement IAsyncQueryProvider
-            //Response.AddPaginationHeader(messages.CurrentPage, messages.Pagesize, messages.TotalCount, messages.TotalPages);
+
             return messages;
         }
 
@@ -94,15 +94,17 @@ namespace API.Controllers
             }
             var messages = checlist.ProjectTo<MessageDto>(_mapper.ConfigurationProvider); //this is necessary cause PagedList doesn't work with Messages but its Dto
 
+             //The below code is removed cause it throws an error: The provider for the source IQueryable doesn't implement IAsyncQueryProvider
+             PagedList<MessageDto>.CreateAsync(messages, messageParams.PageNumber, messageParams.pageSize);
+
             return messages.ToList();
-            //The below code is removed cause it throws an error: The provider for the source IQueryable doesn't implement IAsyncQueryProvider
-            //await PagedList<MessageDto>.CreateAsync(messages, messageParams.PageNumber, messageParams.pageSize);
+           
         }
 
         #endregion
         #region Get Message Thread
         //When giving this info like UserEmail and such, do not put the curly brackets, just input them as is 
-        [HttpGet("messages/thread/{UserEmail}+{otherusername}")]
+        [HttpGet("messages/thread/{UserEmail}/{otherusername}")]
         public async Task<ActionResult<IEnumerable<MessageDto>>> GetMessageThread(string UserEmail, string otherusername)
         {
             User sender = await GetUser(UserEmail); //We using this method cause this is all Yewo left to our disposal and I'm not going to write more code

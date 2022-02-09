@@ -7,8 +7,10 @@ import { take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Group } from '../_models/group';
 import { Message } from '../_models/message';
+import { map } from 'rxjs/operators';
 import { getPaginatedResult, getPaginationHeaders } from './pagination-helper';
 import { SharedService } from './shared.service';
+import { MessageParams } from '../_models/message-params';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +31,26 @@ export class MessageService {
     let params = getPaginationHeaders(pageNumber, pageSize);
     params = params.append('Container', container);
 
+    //I commented out the below code cause we haven't enabled pagination in the controller so it's coming up empty and throwing errors
     return getPaginatedResult<Message[]>(this.shared.baseUrl + 'message/messages/getmessages', params, this.shared.http);
+    //return this.shared.http.get<Message[]>(this.shared.baseUrl + 'message/messages/getmessages');
+  }
+
+  //this method is supposed to replace getMessages()
+  getMessages1() {
+    let messageParams: any = {};
+    //We need to change this so that it can collect for everyone instead of just a specific person
+    messageParams.senderEmail = 'yewotheu123456789@gmail.com';
+    messageParams.username = 'Yewo Theu';
+    messageParams.container = 'Unread';
+
+    console.log(messageParams);
+
+     return this.shared.http.post(this.shared.baseUrl + 'message/messages/getmessages', messageParams).pipe(
+      map((response: Message[]) => {
+        return response;
+      })
+    );
   }
 
   //connected with controller
