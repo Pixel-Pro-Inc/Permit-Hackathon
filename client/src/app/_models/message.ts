@@ -9,5 +9,4 @@ export interface Message {
   content: string;
   messageSent: Date;
   dateRead?: Date;
-  bRead: Read;//This does the same job as the above one but I keep it here cause I don't want to break things as is
 }

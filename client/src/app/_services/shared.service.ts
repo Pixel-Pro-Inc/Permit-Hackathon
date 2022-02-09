@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from '../../environments/environment';
 import { AppComponent } from '../app.component';
 import { BusyService } from './busy.service';
 
@@ -24,7 +25,7 @@ export class SharedService {
     localStorage.removeItem('user');
   }
 
-  public baseUrl = 'https://localhost:5001/api/';
+  public baseUrl = environment.apiUrl;
 
   public hasApplication: boolean;
   public siteTelephone: string = "3214567";

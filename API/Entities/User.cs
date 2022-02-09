@@ -16,6 +16,7 @@ namespace API.Entities
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
         public string AccountType { get; set; }
+        // We haven't used these really and I'm starting to consider removing them entirely
         public ICollection<Message> MessagesSent { get; set; }
         public ICollection<Message> MessagesRecieved { get; set; }
 
